@@ -10,6 +10,14 @@ DemoCamera, it needs no hardware, but its images are more realistic. The
 specimen (filaments or nuclei) moves with the XY stage, blurs with defocus,
 and responds to the objective, exposure, and shutter.
 
+The goal is to generate images that react to device settings and positions in a
+reasonably realistic manner, under the constraint that we maintain real-time
+responsiveness. It should be useful for testing interactive tools (such as
+stage explorers, pixel size calibrators) and some data-driven acquisition
+loops, but not for full testing of image analysis pipelines. We do **not** aim
+to generate the most [realistic images](https://github.com/tlambert03/microsim)
+possible.
+
 ## Devices
 
 Add **SimHub** in the Hardware Configuration Wizard, then choose any of its
@@ -28,8 +36,8 @@ peripherals:
 
 The stages move at a finite speed and have properties to adjust their timing.
 
-The image simulation is only roughly realistic and is not always physically
-correct. Its details will likely change in future versions.
+Device properties and the simulated images will likely change in future
+versions.
 
 ## Building
 
