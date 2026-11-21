@@ -107,6 +107,17 @@ jobs:
         if: runner.os == 'Windows'
         uses: compnerd/gha-setup-vsdevenv@452f99effa381b81c025ccfbdccaca509bff1b29 # v7
 
+      # The standalone LLVM on the runner image can lag behind what the MSVC
+      # STL requires; make sure we use VS's bundled clang-cl.
+      - name: Use VS-bundled clang-cl (Windows)
+        if: matrix.name == 'windows-clang-cl'
+        shell: pwsh
+        run: |
+          $bin = Join-Path $env:VCINSTALLDIR 'Tools\Llvm\x64\bin'
+          if (-not (Test-Path "$bin\clang-cl.exe")) { throw "clang-cl not found in $bin" }
+          $bin >> $env:GITHUB_PATH
+          & "$bin\clang-cl.exe" --version
+
       # We only use Boost headers, but Meson's Boost detection fails unless at
       # least one compiled Boost library is present. So we also install (on
       # Windows, build) Boost.Random, which is not linked.
